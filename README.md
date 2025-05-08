@@ -1,10 +1,10 @@
 ### Setup Jupyterlab with Docker Container
 
 ### Create a Project folder where all your project files will exist.
-    after creating project folder open your computer terminal. Crate a file called Dockerfile.
-    For creating this just open your notepad application and save the file by giving name 
-    is Dockerfile, One thing you have to remaind here this file has no extention.Then write
-     below programe. Here I used "jupyterlab_with_docker" as project folder 
+after creating project folder open your computer terminal. Crate a file called Dockerfile.
+For creating this just open your notepad application and save the file by giving name 
+is Dockerfile, One thing you have to remaind here this file has no extention.Then write
+    below programe. Here I used "jupyterlab_with_docker" as project folder 
 
 ```
     FROM python:3.10-slim
@@ -30,20 +30,33 @@
 
 
 ### details of the above programe
-    Here first line used becasue this docker_image will use python 3.10 version when will 
-    create docker_image 
-    
-    Second line means inside docker a folder is exist called  "app" folder that will 
-    be used as workdirectory for this project.
+Here first line used becasue this docker_image will use python 3.10 version when will 
+create docker_image 
 
-    Install python package section will install all the required library that already have
-    mentioned inside the "requirements.txt" file last line for run the  python program
-    file from your terminal. After next step, here I will create a python file that name
-    is "main.py"
-    
-    Port section that expose 8888 Jupyterlab port for this program. 
+Second line means inside docker a folder is exist called  "app" folder that will 
+be used as workdirectory for this project.
 
-    last section run the cmd command
+Install python package section will install all the required library that already have
+mentioned inside the "requirements.txt" file last line for run the  python program
+file from your terminal. After next step, here I will create a python file that name
+is "main.py"
+
+Port section that expose 8888 Jupyterlab port for this program. 
+
+last section run the cmd command
+
+
+### Now create requirements.txt 
+Inside this  file write all your required library that you need. Here I just used the "pandas"
+library , so I just typed pandas.If you need more just type more below pandas name
+
+
+```
+    pandas
+    matplotlib
+    jupyterlab
+``` 
+
 
 
 ### Now create docker image by running this below command
@@ -52,18 +65,18 @@
     docker build -t docker_imgage_name .
 ```
     
-    The -t flag in docker build -t name . is used to tag (i.e., name) your Docker image.
-    -t image-name: gives your image a name (or "tag")
+The -t flag in docker build -t name . is used to tag (i.e., name) your Docker image.
+-t image-name: gives your image a name (or "tag")
 
-    .: tells Docker to build from the current directory
+.: tells Docker to build from the current directory
 
-    Why Use -t (Tagging)?
-    Without tagging, Docker assigns your image a random name and ID, which is:
+Why Use -t (Tagging)?
+Without tagging, Docker assigns your image a random name and ID, which is:
 
-    Hard to remember
+Hard to remember
 
-    Hard to reuse when running (docker run) Or push it to a registry by this code
-    "docker push yourusername/docker_imgage_name"
+Hard to reuse when running (docker run) Or push it to a registry by this code
+"docker push yourusername/docker_imgage_name"
 
 ### Create Docker Container using already created docker_imgage_name
 
@@ -76,10 +89,10 @@
 
 ```
 
-    For the above docker run code , You need to create "app" folder inside project directory.
-     Inside "app" folder  create a file called "sample.ipynb" and write some python code that
-      will run in your browser. I am giving 
-    here a smple code for you
+For the above docker run code , You need to create "app" folder inside project directory.
+Inside "app" folder  create a file called "sample.ipynb" and write some python code that
+will run in your browser. I am giving 
+here a smple code for you
 
 
 ```
@@ -93,23 +106,23 @@
     plt.title('Sample Plot')  # Corrected: plt.title('Sample Plot')
     plt.show()  #show the plot, Corrected: plt.show()
 ```
-    Here 88888 exposed port that I have mentioned in Dockerfile.
+Here 88888 exposed port that I have mentioned in Dockerfile.
 
-    Why Use -v "$(pwd)/app":/app
-    The -v flag mounts a volume — it connects a folder from your host (your PC)
-     into the container.
+Why Use -v "$(pwd)/app":/app
+The -v flag mounts a volume — it connects a folder from your host (your PC)
+    into the container.
 
-    Part	Purpose
-    -v	Volume mount flag
-    $(pwd)/app	Your local folder (e.g., ./app)
-    /app	Folder inside the container
+Part	Purpose
+-v	Volume mount flag
+$(pwd)/app	Your local folder (e.g., ./app)
+/app	Folder inside the container
 
-    This ensures:
-    You can open, edit, and save notebooks outside Docker
-    Notebooks created in JupyterLab are saved to your real machine
-    When the container exits, your work isn't lost
-    Without -v, notebooks you create in Jupyter would stay only inside the container,
-     and get wiped when it's deleted.
+This ensures:
+You can open, edit, and save notebooks outside Docker
+Notebooks created in JupyterLab are saved to your real machine
+When the container exits, your work isn't lost
+Without -v, notebooks you create in Jupyter would stay only inside the container,
+    and get wiped when it's deleted.
 
-    After successfully run the docker_container you will see the progam run on port 88888
-    the open the http link and paste in browser it will run and show the x-y cordinate graph 
+After successfully run the docker_container you will see the progam run on port 88888
+the open the http link and paste in browser it will run and show the x-y cordinate graph 
