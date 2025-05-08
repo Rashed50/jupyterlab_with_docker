@@ -47,7 +47,7 @@ last section run the cmd command
 
 
 ### Now create requirements.txt 
-Inside this  file write all your required library that you need. Here I just used the "pandas"
+Inside the project directory create this  file and write all your required library that you need. Here I just used the "pandas"
 library , so I just typed pandas.If you need more just type more below pandas name
 
 
